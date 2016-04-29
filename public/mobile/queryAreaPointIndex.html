@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>优步成都UIP车主</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://leancloud.cn/scripts/lib/av-0.5.1.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body onload="loadData();">
+<div class="container">
+    <div class="box" style="margin-top:20px;height:95vh;">
+        <div id="content">
+        </div>
+        <div style="position: absolute;bottom:6vh;left:50%;width: 80%;transform: translateX(-50%);">
+            <hr>
+            <div style="width: 100%;text-align: center;">
+                <button class="btn btn-primary" onclick="window.location.href='queryAreaPoint.html'">热点区域</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    var MyHint = AV.Object.extend("MyHint");
+    /*
+     * 加载出已有的数据  界面展示
+     */
+    function loadData() {
+        var query = new AV.Query(MyHint);
+        query.get(appObjectIds.areaPointSet_objectId, {
+            success: function (obj) {
+                var myHtml = obj.get("content");
+                $('#content').html(myHtml);
+                $("#content img").width($("#content").width());
+            },
+            error: function (object, error) {
+                alert("错误:" + error.message);
+            }
+        });
+    }
+</script>
+</html>

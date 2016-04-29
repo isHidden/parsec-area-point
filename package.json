@@ -1,15 +1,29 @@
 {
   "name": "parsec-area-point",
   "version": "1.0.0",
-  "description": "",
+  "description": "map module",
   "main": "index.js",
+  "peerDependencies": {
+    "express": "^4.13.4",
+    "leanengine": "*",
+    "parsec-toolkit-for-leancloud": "^1.0.1"
+  },
+  "devDependencies": {
+    "express": "^4.13.4",
+    "leanengine": "^0.4.0",
+    "parsec-toolkit-for-leancloud": "^1.0.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isHidden/parsec-area-point.git"
+  },
   "author": "isHidden",
   "license": "MIT",
-  "devDependencies": {
-    "express": "^4.13.4",
-    "leanengine": "^0.4.0"
-  }
+  "bugs": {
+    "url": "https://github.com/isHidden/parsec-area-point/issues"
+  },
+  "homepage": "https://github.com/isHidden/parsec-area-point#readme"
 }
