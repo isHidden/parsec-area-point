@@ -14,7 +14,7 @@ module.exports= function (AV) {
     var AreaPointService = require("../service/AreaPointService")(AV);
     var AreaPointTimesService = require("../service/AreaPointTimesService")(AV);
     
-    var P=require("parsec-toolkit-for-leancloud");
+    //var P=require("parsec-toolkit-for-leancloud");
 
  
     /**
@@ -69,7 +69,9 @@ module.exports= function (AV) {
             color: req.body.color
         };
   
-        AreaPointTimesService.save(obj, req.body.objectId).then(P.debugPromiseChain).then(function (obj) {
+        AreaPointTimesService.save(obj, req.body.objectId)
+            // .then(P.debugPromiseChain)
+            .then(function (obj) {
             return res.send({status: 1, message: "保存成功", obj: obj});
         }).fail(function (e) {
             return res.send({status: -1, message: e});
