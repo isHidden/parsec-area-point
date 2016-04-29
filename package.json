@@ -1,0 +1,15 @@
+{
+  "name": "parsec-area-point",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "isHidden",
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.13.4",
+    "leanengine": "^0.4.0"
+  }
+}
