@@ -4,7 +4,7 @@
 module.exports=function (AV) {
 
     // var AV = require('leanengine');
-    AV.Promise._isPromisesAPlusCompliant = false;
+    // AV.Promise._isPromisesAPlusCompliant = false;
 
     var AreaPoint = AV.Object.extend("AreaPoint");
 

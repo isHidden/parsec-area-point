@@ -16,9 +16,7 @@ module.exports= function (AV) {
     
     var P=require("parsec-toolkit-for-leancloud");
 
-    router.get("/test_1",function (req,res) {
-        res.send("OK");
-    })
+ 
     /**
      * 时间段列表
      */
