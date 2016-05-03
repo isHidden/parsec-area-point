@@ -5,13 +5,14 @@
   "main": "index.js",
   "peerDependencies": {
     "express": "*",
-    "leanengine": "*",
+    "leanengine": "*"
+  },
+  "dependencies": {
     "parsec-toolkit-for-leancloud": "^1.0.1"
   },
   "devDependencies": {
     "express": "^4.13.4",
-    "leanengine": "^0.4.0",
-    "parsec-toolkit-for-leancloud": "^1.0.1"
+    "leanengine": "^0.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
