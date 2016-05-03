@@ -22,6 +22,10 @@ AV.Cloud.run("mobile_areaPoint",{},{
                     tmplist.push(new BMap.Point(data.lng, data.lat));
                 }
             });
+            if(!tmplist.length){
+                return;
+            }
+
             var polygon = new BMap.Polygon(tmplist, {strokeColor:obj.color, strokeWeight:2, strokeOpacity:0.5});  //创建图形
             map.addOverlay(polygon);
 
