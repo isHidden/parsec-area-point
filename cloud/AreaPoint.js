@@ -24,6 +24,8 @@ module.exports=function (AV) {
 
         var query = new AV.Query(AreaPoint);
         query.addDescending('createdAt');
+        query.skip(0);
+        query.limit(10000);
         query.find({
             success: function (result) {
                 return response.success(result);
