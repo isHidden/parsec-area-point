@@ -22,19 +22,30 @@ module.exports=function (AV) {
             return response.error("用户错误");
         }
 
-        var query = new AV.Query(AreaPoint);
-        query.addDescending('createdAt');
-        query.skip(0);
-        query.limit(10000);
-        query.find({
-            success: function (result) {
-                return response.success(result);
-            },
-            error: function (error) {
-                return response.error({code: -1, msg: error});
-            }
+        findAreaPoint(0,[],function(list){
+            return response.success(list);
         });
     });
+
+    function findAreaPoint(n,list,cb){
+        var query = new AV.Query(AreaPoint);
+        query.addDescending('createdAt');
+        query.skip(n*1000);
+        query.limit(1000);
+        query.find({
+            success: function (result) {
+                list =  list.concat(result);
+                if(result.length==1000){
+                    findAreaPoint(n+1,list,cb);
+                }else{
+                    cb(list);
+                }
+            },
+            error: function (error) {
+                cb(list);
+            }
+        });
+    }
 
     /**
      * 区域点列表(新)
