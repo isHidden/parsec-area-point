@@ -19,11 +19,13 @@ module.exports=function (AV) {
     AV.Cloud.define("admin_areaPoint_list", function (request, response) {
         var user = request.user;
         if (!(user && user.get("username") == "admin")) {
-            return response.error("用户错误");
+            return response.error("用户错
         }
 
         var query = new AV.Query(AreaPoint);
         query.addDescending('createdAt');
+        query.skip(0)
+        query.limit(10000);
         query.find({
             success: function (result) {
                 return response.success(result);
