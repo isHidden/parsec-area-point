@@ -92,11 +92,6 @@ module.exports=function (AV) {
             findAreaPoint(0,[],function(list){
                 return response.success({status: 1, setList: areaArr, areaList: list});
             },areaIdArr);
-            // AreaPointService.list(areaIdArr).then(function (areaList) {
-            //     return response.success({status: 1, setList: areaArr, areaList: areaList});
-            // }).fail(function (e) {
-            //     return response.success({status: -1, message: e});
-            // });
         }).fail(function (e) {
             return response.success({status: -1, message: e});
         });
