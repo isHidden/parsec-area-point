@@ -27,16 +27,23 @@ module.exports=function (AV) {
         });
     });
 
-    function findAreaPoint(n,list,cb){
+    function findAreaPoint(n,list,cb,timesId){
         var query = new AV.Query(AreaPoint);
         query.addDescending('createdAt');
+        if(timesId){
+            if (timesId instanceof Array) {
+                query.containedIn('timesId', timesId);
+            } else {
+                query.equalTo('timesId', timesId);
+            }
+        }
         query.skip(n*1000);
         query.limit(1000);
         query.find({
             success: function (result) {
                 list =  list.concat(result);
                 if(result.length==1000){
-                    findAreaPoint(n+1,list,cb);
+                    findAreaPoint(n+1,list,cb,timesId);
                 }else{
                     cb(list);
                 }
@@ -46,7 +53,7 @@ module.exports=function (AV) {
             }
         });
     }
-    
+
     /**
      * 区域点列表(新)
      * @param page
@@ -81,11 +88,10 @@ module.exports=function (AV) {
                     }
                 }
             }
-            AreaPointService.list(areaIdArr).then(function (areaList) {
-                return response.success({status: 1, setList: areaArr, areaList: areaList});
-            }).fail(function (e) {
-                return response.success({status: -1, message: e});
-            });
+
+            findAreaPoint(0,[],function(list){
+                return response.success({status: 1, setList: areaArr, areaList: list});
+            },areaIdArr);
         }).fail(function (e) {
             return response.success({status: -1, message: e});
         });
