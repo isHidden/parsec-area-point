@@ -6,10 +6,13 @@ module.exports=function (AV) {
     // var AV = require('leanengine');
     // AV.Promise._isPromisesAPlusCompliant = false;
 
+    AV.Promise._isPromisesAPlusCompliant = false;
+    var _=require("underscore");
     var AreaPoint = AV.Object.extend("AreaPoint");
 
     var AreaPointService = require("../service/AreaPointService")(AV);
     var AreaPointTimesService = require("../service/AreaPointTimesService")(AV);
+    var AreaPointIndexService = require("../service/AreaPointIndexService")(AV);
 
     /**
      * 区域点列表
@@ -65,7 +68,7 @@ module.exports=function (AV) {
         }).fail(function (e) {
             return response.success({status:-1,message: e});
         });
-    }
+    });
 
     /**
      * 区域点列表(新)
