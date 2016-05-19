@@ -65,7 +65,7 @@ module.exports=function (AV) {
         }).fail(function (e) {
             return response.success({status:-1,message: e});
         });
-    });
+    }
 
     /**
      * 区域点列表(新)
