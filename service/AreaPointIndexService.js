@@ -66,5 +66,5 @@ module.exports= function (AV) {
         }
     };
 
-    return AreaPointService;
+    return AreaPointIndexService;
 };
