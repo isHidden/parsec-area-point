@@ -220,7 +220,7 @@ module.exports= function (AV) {
             }
             var buffer = new Buffer(str);
             //需要转换字符集
-            response.send(buffer);
+            response.send(iconv.encode(buffer, 'utf-8'));
         });
 
     });
