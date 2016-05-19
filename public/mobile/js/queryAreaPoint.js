@@ -104,19 +104,6 @@ function loadPoint(ids) {
                 });
                 var polygon = new BMap.Polygon(tmplist, {strokeColor:obj.color, strokeWeight:2, strokeOpacity:0.5});  //创建图形
                 map.addOverlay(polygon);
-        setList.forEach(function(obj){
-            var tmplist = new Array();
-            areaList.forEach(function(data){
-                if(data.timesId==obj.objectId){
-                    tmplist.push(new BMap.Point(data.lng, data.lat));
-                }
-            });
-            if(!tmplist.length){
-                return;
-            }
-
-            var polygon = new BMap.Polygon(tmplist, {strokeColor:obj.color, strokeWeight:2, strokeOpacity:0.5});  //创建图形
-            map.addOverlay(polygon);
 
                 var len = 0;
                 if(obj.title){
