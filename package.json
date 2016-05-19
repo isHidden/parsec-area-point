@@ -8,6 +8,7 @@
     "leanengine": "*"
   },
   "dependencies": {
+    "iconv-lite": "0.4.11",
     "parsec-toolkit-for-leancloud": "^1.0.1",
     "underscore": "^1.8.3"
   },

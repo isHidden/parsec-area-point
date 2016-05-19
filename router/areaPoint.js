@@ -6,6 +6,7 @@ module.exports= function (AV) {
     // var AV = require('leanengine');
     var util = require("util");
     var express = require('express');
+    var iconv = require('iconv-lite');
     var router = express();
     var bodyParser = require('body-parser');
     router.use(bodyParser.json());
