@@ -15,16 +15,15 @@ module.exports=function (AV) {
      * @param type
      * @returns {*|T|{}}
      */
-    AreaPointTimesService.list = function (time) {
+    AreaPointTimesService.list = function (queryFn) {
         var query = new AV.Query(AreaPointTimes);
-        if(time){
-            query.lessThanOrEqualTo('startTime', time);
-            query.greaterThanOrEqualTo('endTime', time);
+
+        if (typeof (queryFn) === 'function') {
+            queryFn.call(this, query);
         }
-        query.addDescending('createdAt');
+
         return query.find();
     };
-
 
     /**
      * 得到一个区域设置
@@ -33,8 +32,8 @@ module.exports=function (AV) {
     AreaPointTimesService.get = function(objectId){
         var query = new AV.Query(AreaPointTimes);
         return query.get(objectId);
-    }
-    
+    };
+
     /**
      * 保存区域设置
      * @param from
@@ -56,10 +55,11 @@ module.exports=function (AV) {
         //     }
         // });
         // return obj.save();
-        
+
         return AreaPointTimes.new({
             color:dataMap["color"],
             name:dataMap["name"],
+            remark:dataMap["remark"],
             timeList:dataMap["timeList"],
             objectId:objectId
         }).save();
@@ -83,7 +83,7 @@ module.exports=function (AV) {
         }else{
             throw {code: -1, message: "删除对象未找到"};
         }
-    }
+    };
 
 
     /**

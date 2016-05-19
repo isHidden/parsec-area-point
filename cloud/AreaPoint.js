@@ -55,45 +55,68 @@ module.exports=function (AV) {
     }
 
     /**
+     * 服务区域首页项
+     * @param page
+     * @param callback
+     */
+    AV.Cloud.define("mobile_areaPoint_index", function (request, response) {
+        AreaPointIndexService.list(1).then(function (list) {
+            return response.success({status:1,list: list});
+        }).fail(function (e) {
+            return response.success({status:-1,message: e});
+        });
+    });
+
+    /**
      * 区域点列表(新)
      * @param page
      * @param callback
      */
-    AV.Cloud.define("mobile_areaPoint", function (request, response) {
+    AV.Cloud.define("mobile_areaPoint",function(request,response){
 
         // var user=request.user;
         // if(!(user&&user.get("username")=="admin")){
         //     return response.error("用户错误");
         // }
 
+        var ids = request.params.ids;
+        // if(!ids){
+        //     return response.error("地图圈数据错误");
+        // }
         var data = new Date();
         var h = data.getHours();
         var m = data.getMinutes();
-        var d = h * 100 + m;
-        AreaPointTimesService.list().then(function (list) {
+        var d = h*100+m;
+        AreaPointTimesService.list(function (query) {
+            if(ids){
+                query.containedIn("objectId",ids.split(","));
+            }
+            //query.equalTo("week",new Date().getDay().toString());
+        }).then(function (list) {
             var areaArr = new Array();
             var areaIdArr = new Array();
-            for (var i = 0; i < list.length; i++) {
+            for(var i=0;i<list.length;i++){
                 var arr = list[i].get("timeList");
-                if (arr) {
-                    for (var n = 0; n < arr.length; n++) {
+                if(arr){
+                    for(var n=0;n<arr.length;n++){
                         var o = arr[n];
-                        if (Number(o.startTime) <= d && Number(o.endTime) >= d) {
-                            areaIdArr.push(list[i].id);
-                            list[i].set("title", o.title);
-                            list[i].set("content", o.content);
-                            areaArr.push(list[i]);
-                            break;
+                        if(o.week){
+                            if(Number(o.startTime)<=d&&Number(o.endTime)>=d&&_.indexOf(o.week,new Date().getDay().toString())>-1){
+                                areaIdArr.push(list[i].id);
+                                list[i].set("title",o.title);
+                                list[i].set("content",o.content);
+                                areaArr.push(list[i]);
+                                break;
+                            }
                         }
                     }
                 }
             }
-
             findAreaPoint(0,[],function(list){
                 return response.success({status: 1, setList: areaArr, areaList: list});
             },areaIdArr);
         }).fail(function (e) {
-            return response.success({status: -1, message: e});
+            return response.success({status:-1,message: e});
         });
 
     });
@@ -102,14 +125,14 @@ module.exports=function (AV) {
     /**
      * 区域点列表v1
      */
-    AV.Cloud.define("mobile_areaPointTimes_list", function (request, response) {
-        var query = new AV.Query(AreaPoint);
+    AV.Cloud.define("mobile_areaPointTimes_list",function(request,response){
+        var query=new AV.Query(AreaPoint);
         query.find({
-            success: function (result) {
+            success:function(result){
                 return response.success(result);
             },
-            error: function (error) {
-                return response.error({code: -1, msg: error});
+            error:function(error){
+                return response.error({code:-1,msg:error});
             }
         });
     });
@@ -121,9 +144,9 @@ module.exports=function (AV) {
      * @param cb
      * @returns {*}
      */
-    AV.Cloud.define("admin_areaPoint_save", function (request, response) {
-        var user = request.user;
-        if (!(user && user.get("username") == "admin")) {
+    AV.Cloud.define("admin_areaPoint_save",function(request,response){
+        var user=request.user;
+        if(!(user&&user.get("username")=="admin")){
             return response.error("用户错误");
         }
 
@@ -132,33 +155,33 @@ module.exports=function (AV) {
         var address = request.params.address;
         var timesId = request.params.timesId;
         var obj = new AreaPoint();
-        if (!lat) {
-            return response.send({code: -1, message: '经度不可为空'});
-        } else {
-            obj.set("lat", lat);
+        if(!lat){
+            return response.send({code:-1,message:'经度不可为空'});
+        }else{
+            obj.set("lat",lat);
         }
-        if (!lng) {
-            return response.send({code: -1, message: '纬度不可为空'});
-        } else {
-            obj.set("lng", lng);
+        if(!lng){
+            return response.send({code:-1,message:'纬度不可为空'});
+        }else{
+            obj.set("lng",lng);
         }
-        if (!address) {
-            return response.send({code: -1, message: '详细地址不可为空'});
-        } else {
-            obj.set("address", address);
+        if(!address){
+            return response.send({code:-1,message:'详细地址不可为空'});
+        }else{
+            obj.set("address",address);
         }
-        if (!timesId) {
-            return response.send({code: -1, message: 'timesId不可为空'});
-        } else {
-            obj.set("timesId", timesId);
+        if(!timesId){
+            return response.send({code:-1,message:'timesId不可为空'});
+        }else{
+            obj.set("timesId",timesId);
         }
 
-        obj.save(null, {
-            success: function (obj) {
-                return response.success({code: 1, msg: "保存成功"});
+        obj.save(null,{
+            success:function(obj){
+                return response.success({code:1,msg:"保存成功"});
             },
-            error: function (obj, error) {
-                return response.error({code: -1, msg: error});
+            error:function(obj,error){
+                return response.error({code:-1,msg:error});
             }
         });
     });
@@ -169,38 +192,38 @@ module.exports=function (AV) {
      * @param page
      * @param callback
      */
-    AV.Cloud.define("admin_areaPoint_delete", function (request, response) {
-        var user = request.user;
-        if (!(user && user.get("username") == "admin")) {
+    AV.Cloud.define("admin_areaPoint_delete",function(request,response){
+        var user=request.user;
+        if(!(user&&user.get("username")=="admin")){
             return response.error("用户错误");
         }
 
         var objectId = request.params.objectId;
-        if (!objectId) {
-            return response.success({code: -1, message: '没有要删除的对象'});
+        if(!objectId){
+            return response.success({code:-1,message:'没有要删除的对象'});
         }
 
         var query = new AV.Query(AreaPoint);
-        query.get(objectId, {
-            success: function (item) {
-                if (!item) {
-                    return response.success({code: -1, message: '没有要删除的对象'});
+        query.get(objectId,{
+            success:function(item){
+                if(!item){
+                    return response.success({code:-1,message:'没有要删除的对象'});
                 }
                 item.destroy({
-                    success: function (obj) {
-                        return response.success({code: 1, message: '删除成功'});
+                    success:function(obj){
+                        return response.success({code:1,message:'删除成功'});
                     },
-                    error: function (delObj, error) {
-                        return response.error({code: -1, message: error.message});
+                    error:function(delObj,error){
+                        return response.error({code:-1,message:error.message});
                     }
                 });
 
-            },
-            error: function (error) {
-                return response.error({code: -1, message: error.message});
+            } ,
+            error:function(error){
+                return response.error({code:-1,message:error.message});
             }
         });
     });
-    
+
     return AV.Cloud
 };

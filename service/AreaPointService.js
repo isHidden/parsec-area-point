@@ -74,7 +74,7 @@ module.exports= function (AV) {
         } else {
             return AV.Object.saveAll(list)
         }
-    }
+    };
 
     return AreaPointService;
 };
