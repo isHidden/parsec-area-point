@@ -5,6 +5,7 @@ var setList = [];
 var dataList = [];
 var chooseId = "";
 var objArray = [];
+var weekArray = ["周日","周一","周二","周三","周四","周五","周六"];
 var opts = {
     width: 180,     // 信息窗口宽度
     height: 100,     // 信息窗口高度
@@ -85,6 +86,14 @@ var areaPoint = {
         if (obj.timeList) {
             obj.timeList.forEach(function (t) {
                 html += "<tr id=\"t_"+t.index+"\" title=\""+t.content+"\"><td>" + numberToTime(t.startTime) + "-" + numberToTime(t.endTime) + "</td><td>" + t.title + "</td><td><button class=\"btn btn-danger\" title=\"删除\" onclick=\"areaPoint.delTimesItem('"+obj.objectId+"','" + t.index + "')\">删除</button></td></tr>";
+                html += "<tr id=\"t_w"+t.index+"\" title=\""+t.content+"\"><td colspan='3'>";
+                if(t.week){
+                    t.week.forEach(function (w) {
+                        html += weekArray[parseInt(w)]+",";
+                    });
+                    html = html.substring(0,html.length-1);
+                }
+                html += "</td></tr>";
             });
         }
 
