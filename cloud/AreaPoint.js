@@ -159,22 +159,22 @@ module.exports=function (AV) {
         var timesId = request.params.timesId;
         var obj = new AreaPoint();
         if(!lat){
-            return response.send({code:-1,message:'经度不可为空'});
+            return response.error({code:-1,message:'经度不可为空'});
         }else{
             obj.set("lat",lat);
         }
         if(!lng){
-            return response.send({code:-1,message:'纬度不可为空'});
+            return response.error({code:-1,message:'纬度不可为空'});
         }else{
             obj.set("lng",lng);
         }
         if(!address){
-            return response.send({code:-1,message:'详细地址不可为空'});
+            return response.error({code:-1,message:'详细地址不可为空'});
         }else{
             obj.set("address",address);
         }
         if(!timesId){
-            return response.send({code:-1,message:'timesId不可为空'});
+            return response.error({code:-1,message:'timesId不可为空'});
         }else{
             obj.set("timesId",timesId);
         }
