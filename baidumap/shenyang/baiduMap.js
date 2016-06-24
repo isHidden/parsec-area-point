@@ -9,7 +9,7 @@ map.enableContinuousZoom(true);    //启用地图惯性拖拽，默认禁用
 map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
 map.addControl(new BMap.OverviewMapControl()); //添加默认缩略地图控件
 map.addControl(new BMap.OverviewMapControl({ isOpen: false, anchor: BMAP_ANCHOR_BOTTOM_RIGHT }));   //右下角，打开
-map.centerAndZoom("沈阳市",11);
+map.centerAndZoom("沈阳市",12);
 map.panBy(305,165);
 //map.centerAndZoom("沈阳市",12);
 //map.setCurrentCity("沈阳市");// 设置地图显示的城市 此项是必须设置的
