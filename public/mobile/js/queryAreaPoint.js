@@ -3,8 +3,9 @@
  */
 var MyHint = AV.Object.extend("MyHint");
 $(function(){
-    loaddata();
-    loadIndex();
+    loadPoint();
+    // loaddata();
+    // loadIndex();
 });
 // 百度地图API功能
 var opts = {
