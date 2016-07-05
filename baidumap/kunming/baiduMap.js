@@ -9,10 +9,9 @@ map.enableContinuousZoom(true);    //启用地图惯性拖拽，默认禁用
 map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
 map.addControl(new BMap.OverviewMapControl()); //添加默认缩略地图控件
 map.addControl(new BMap.OverviewMapControl({ isOpen: false, anchor: BMAP_ANCHOR_BOTTOM_RIGHT }));   //右下角，打开
-map.centerAndZoom("昆明市",11);
+var _initPoint = new BMap.Point(102.777432,25.019976);
+map.centerAndZoom(_initPoint,12);
 map.panBy(305,165);
-//map.centerAndZoom("成都市",12);
-//map.setCurrentCity("成都市");// 设置地图显示的城市 此项是必须设置的
 var localSearch = new BMap.LocalSearch(map);
 //localSearch.enableAutoViewport(); //允许自动调节窗体大小
 function initMap(){
