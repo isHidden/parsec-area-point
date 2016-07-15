@@ -186,11 +186,12 @@ module.exports= function (AV,adminPath) {
     });
 
     function checkLogin(req, res, next) {
-        if (!req.AV.user) {
-            res.send({status: -2, url: adminPath+'/login.html'});
-        } else {
-            next();
-        }
+        // if (!req.AV.user) {
+        //     res.send({status: -2, url: adminPath+'/login.html'});
+        // } else {
+        //     next();
+        // }
+        next();
     }
 
 
