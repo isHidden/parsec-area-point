@@ -14,7 +14,7 @@ module.exports = function (options) {
     }, options);
 
     var app = options.app;
-    var area_router = require("./router/areaPoint")(options.AV);
+    var area_router = require("./router/areaPoint")(options.AV,options.adminPath);
     var area_cloud = require("./cloud/AreaPoint")(options.AV);
 
     app.use(express.static(context + "public"));

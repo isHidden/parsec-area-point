@@ -1,7 +1,7 @@
 /**
  * Created by Miku on 16/4/14.
  */
-module.exports= function (AV) {
+module.exports= function (AV,adminPath) {
     "use strict";
     // var AV = require('leanengine');
     var util = require("util");
@@ -187,7 +187,7 @@ module.exports= function (AV) {
 
     function checkLogin(req, res, next) {
         if (!req.AV.user) {
-            res.send({status: -2, url: '/213123716238/login.html'});
+            res.send({status: -2, url: adminPath+'/login.html'});
         } else {
             next();
         }
